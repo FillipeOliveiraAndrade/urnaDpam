@@ -1,95 +1,97 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { useEffect, useState } from "react";
 
-export default function Home() {
+import candidates from "../../data/candidates";
+import { ButtonGreen, ButtonNumber, ButtonRed, Buttons, ButtonsContainer, CandidatePhoto, Container, Content, Image, Input, Screen, SuggestedTheme, Title } from "./styles";
+
+const TITLE = 'Congresso Por Algo Maior 2024';
+const BUTTONS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+// const json = require("./votos.json");
+
+export default function Urna() {
+  const [inputValue, setInputValue] = useState('');
+  const [candidate, setCandidate] = useState({ nome: '', tema: '', image: '' });
+  const [votos, setVotos] = useState<any>();
+
+  function handleOnClick(numberButton: string) {
+    const newInputValue = numberButton;
+    setInputValue(newInputValue);
+
+    const candidate = candidates.find((candidate) => candidate.numeroEleitoral === newInputValue);
+    candidate && setCandidate(candidate);
+  }
+
+  function handleSubmit() {
+    // const candidate = votes.find((item) => item.numeroEleitoral === inputValue);
+    
+  }
+
+  useEffect(() => {
+    fetch('votos.json', { headers: { Accept: 'application/json' } })
+    .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(votes => {
+        console.log(votes);
+        setVotos(votes);
+    })
+    .catch(error => console.error('Fetch error:', error));
+    
+  }, []);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+    <Container>
+      <Screen>
+        <Content>
+          <div>
+            <Title>
+              { TITLE }
+            </Title>
+
+            <Input
+              disabled
+              value={inputValue}
             />
-          </a>
+          </div>
+          
+          { candidate.nome !== ''
+            ? <CandidatePhoto src={require(`../../assets/${candidate.image}.png`)} alt="Imagem do candidato" />
+            : <Image></Image>
+          }
+        </Content>
+        
+        <div style={{ position: 'absolute', top: '200px', marginLeft: '102px' }}>
+          <SuggestedTheme>
+            NOME: { candidate.nome }
+          </SuggestedTheme>
+
+          <SuggestedTheme>
+            TEMA: { candidate.tema }
+          </SuggestedTheme>
         </div>
-      </div>
+      </Screen>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <Buttons>
+        <ButtonsContainer>
+          { BUTTONS.map((number) => (
+              <ButtonNumber
+                key={number}
+                onClick={() => handleOnClick(number.toString())}>
+                  {number} 
+              </ButtonNumber>)) }
+        </ButtonsContainer>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+        <div style={{ display: "flex", flexDirection: 'column',  justifyContent: 'center', gap: '24px' }}>
+          <ButtonRed onClick={() => {
+            setInputValue('');
+            setCandidate({ nome: '', tema: '', image: '' });
+          }}> CORRIGE </ButtonRed>
+          <ButtonGreen onClick={handleSubmit}> CONFIRMA </ButtonGreen>
+        </div>
+      </Buttons>
+    </Container>
   );
 }
