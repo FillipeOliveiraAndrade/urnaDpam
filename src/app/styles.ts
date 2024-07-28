@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   flex: 1;
 
-  padding: 0 118px 0 108px;
+  padding: 0 140px 0 130px;
 `;
 
 export const Screen = styled.div`
@@ -53,7 +53,7 @@ export const Input = styled.input`
   width: 90px;
 
   border-width: 1.6px;
-  border-color: '#C9C9C9';
+  border-color: "#C9C9C9";
 
   background-color: white;
 `;
@@ -68,14 +68,14 @@ export const ButtonsContainer = styled.div`
 
 export const ButtonNumber = styled.button`
   font-size: 18px;
-  
-  height: 85px;
-  width: 66px;
+
+  height: 100px;
+  width: 77px;
 
   margin: 4px;
 
   background-color: black;
-  color: white
+  color: white;
 `;
 
 export const Buttons = styled.div`
@@ -83,7 +83,7 @@ export const Buttons = styled.div`
   flex-direction: row;
   justify-content: space-evenly;
 
-  margin-top: 48px;
+  margin-top: 30px;
 `;
 
 export const ButtonWhite = styled.button`
@@ -96,7 +96,7 @@ export const ButtonWhite = styled.button`
   font-size: 18px;
 
   background-color: white;
-  color: black
+  color: black;
 `;
 
 export const ButtonRed = styled.button`

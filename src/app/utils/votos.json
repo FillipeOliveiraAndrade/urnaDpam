@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Bruna Garcia",
+    "tema": "Permaneça",
+    "numeroEleitoral": "1",
+    "votos": 0
+  },
+  {
+    "name": "Arthur Couto",
+    "tema": "Em águas profundas",
+    "numeroEleitoral": "2",
+    "votos": 0
+  },
+  {
+    "name": "Thayana Rocha",
+    "tema": "Ao que vencer",
+    "numeroEleitoral": "3",
+    "votos": 0
+  },
+  {
+    "name": "Timotéo Rocha",
+    "tema": "Filhos à mesa",
+    "numeroEleitoral": "4",
+    "votos": 0
+  },
+  {
+    "name": "Camila Gois",
+    "tema": "Tem vaga!",
+    "numeroEleitoral": "5",
+    "votos": 0
+  },
+  {
+    "name": "Mariana Costa",
+    "tema": "Eu não sou daqui",
+    "numeroEleitoral": "6",
+    "votos": 0
+  }
+]
